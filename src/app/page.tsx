@@ -1,6 +1,29 @@
 import Image from "next/image";
 
 export default function Home() {
+
+  
+function FizzBuzz(maxNum: number): void {
+    for (let number: number = 1; number <= maxNum; number++) {
+        // Esta condición debe ir primero porque si un número es múltiplo de 3 y 5, este if lo atrapará antes.
+        if (number % 3 === 0 && number % 5 === 0) {
+            console.log("FizzBuzz");
+            // Divisible por 3
+        } else if (number % 3 === 0) {
+            console.log("Fizz");
+            // Divisible por 5
+        } else if (number % 5 === 0) {
+            console.log("Buzz");
+            // Si no es divisible por ninguno, que me muestre solo el número
+        } else {
+            console.log(number);
+        }
+    }
+}
+
+// maxNum
+FizzBuzz(50);
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
