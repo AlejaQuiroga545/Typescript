@@ -6,10 +6,14 @@ import { MiButton } from "@/components/button/Button";
 import { MdCancel } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { useState } from "react";
-import { getProperties, postProperty } from "../services/properties";
+import {
+  getProperties,
+  postProperty,
+  putProperty,
+  deleteProperty,
+} from "../services/properties";
 
 export default function Dashboard() {
-
   // Notificaciones de prueba
   const handleSuccessClick = () => {
     notification("Usuario creado correctamente", "success");
@@ -27,7 +31,7 @@ export default function Dashboard() {
     notification("Precaución, usuario expuesto", "warn", 7000);
   };
 
-  // Loader para botón Cancel 
+  //Loader para botón Cancel
   const [loader, setLoader] = useState(false);
 
   const handlerClick = () => {
@@ -35,27 +39,31 @@ export default function Dashboard() {
     setTimeout(() => setLoader(false), 3000);
   };
 
-  // GET
+  //GET
   const [dataProperties, setDataProperties] = useState<any>(null);
-  const [showData, setShowData] = useState(false); // controla si se despliegan los datos
+  const [showData, setShowData] = useState(false);
 
   const handleClick = async () => {
     const response = await getProperties();
     setDataProperties(response);
-    setShowData(true); // solo muestra cuando se hace click
+    setShowData(true);
   };
 
-  // POST con formulario
+  //POST - PUT
+
   const [form, setForm] = useState({
+    id: "",
     name: "",
     value: "",
     img: "",
   });
 
+  const [isEditing, setIsEditing] = useState(false); // controla si estamos editando
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value, // Los [] me permiten usar el valor de una variable como nombre de propiedad en un objeto.
+      [e.target.name]: e.target.value
     });
   };
 
@@ -68,27 +76,73 @@ export default function Dashboard() {
     }
 
     try {
-      const response = await postProperty({
-        name: form.name,
-        value: Number(form.value),
-        img: form.img,
-      });
+      if (isEditing) {
+        // PUT
+        await putProperty({
+          id: form.id,
+          name: form.name,
+          value: Number(form.value),
+          img: form.img,
+        });
+        notification("Propiedad actualizada correctamente", "success");
+      } else {
+        // POST
+        await postProperty({
+          name: form.name,
+          value: Number(form.value),
+          img: form.img,
+        });
+        notification("Propiedad guardada correctamente", "success");
+      }
 
-      notification("Propiedad guardada correctamente", "success");
-      console.log("Saved:", response);
+      // limpiar formulario y estado de edición
+      setForm({ id: "", name: "", value: "", img: "" });
+      setIsEditing(false);
 
-      // Limpia formulario
-      setForm({ name: "", value: "", img: "" });
-
-      // Mostrar datos cuando se ingresan
+      // refrescar lista
       handleClick();
     } catch (error) {
+      console.error("Error guardar/actualizar:", error);
       notification("Error al guardar la propiedad", "error");
-      console.error(error);
     }
   };
 
-  // Renderizado
+  // DELETE
+  const handleDelete = async (id: string) => {
+    const confirmed = confirm("¿Seguro que quieres eliminar esta propiedad?");
+    if (!confirmed) return;
+
+    try {
+      await deleteProperty(id);
+      notification("Propiedad eliminada", "success");
+
+      // actualización sin recargar todo
+      setDataProperties((prev: any) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          miInfo: prev.miInfo.filter((p: any) => p._id !== id),
+        };
+      });
+    } catch (error) {
+      console.error("Error al eliminar:", error);
+      notification("Error al eliminar la propiedad", "error");
+    }
+  };
+
+  // EDIT
+  const handleEdit = (property: any) => {
+    setForm({
+      id: property._id,
+      name: property.name,
+      value: String(property.value),
+      img: property.img,
+    });
+    setIsEditing(true);
+    // opcional: mostrar la lista si estaba oculta
+    setShowData(true);
+  };
+
   return (
     <div className="dashboard">
       <h1>Welcome to your dashboard</h1>
@@ -125,7 +179,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Formulario para agregar nueva propiedad */}
+      {/* Formulario para crear/editar propiedad */}
       <form onSubmit={handleSubmit} className="form">
         <input
           type="text"
@@ -149,18 +203,45 @@ export default function Dashboard() {
           onChange={handleChange}
         />
         <button type="submit" className="btn success-btn">
-          Add property
+          {isEditing ? "Update property" : "Add property"}
         </button>
+        {isEditing && (
+          <button
+            type="button"
+            className="btn error-btn"
+            onClick={() => {
+              setForm({ id: "", name: "", value: "", img: "" });
+              setIsEditing(false);
+            }}
+          >
+            Cancel edit
+          </button>
+        )}
       </form>
 
       {/* Mostrar data solo si se presionó Call endpoint */}
       {showData && dataProperties?.ok && (
         <div className="data">
           {dataProperties.miInfo?.map((property: any) => (
-            <div key={property._id}>
+            <div key={property._id} className="property-card">
               <div>{property.name}</div>
               <div>{property.value}</div>
               <img src={property.img} alt={property.name} />
+
+              <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
+                <button
+                  className="btn inf-btn"
+                  onClick={() => handleEdit(property)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn error-btn"
+                  onClick={() => handleDelete(property._id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>

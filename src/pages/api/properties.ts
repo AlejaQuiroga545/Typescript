@@ -21,6 +21,8 @@ export default async function handler(
 ) {
   try {
     if (req.method === "GET") {
+      await dbConnection();
+
       const data = await Properties.find();
 
       console.log(data);
@@ -57,20 +59,6 @@ export default async function handler(
       });
     }
 
-    if (req.method === "DELETE") {
-
-      await dbConnection();
-      const id = req.query.id as string;
-
-      const deletedProperty = await Properties.findByIdAndDelete(id);
-
-      return res.status(200).json({
-        ok: true,
-        message: "Property deleted",
-        _id: deletedProperty?._id,
-      });
-    }
-
     if (req.method === "PUT") {
         await dbConnection()
         const {id, name, value, img} = req.body
@@ -88,6 +76,20 @@ export default async function handler(
         ok: true,
         message: "Property updated",
         updatedId:propertyUpdate?._id
+      });
+    }
+
+    if (req.method === "DELETE") {
+
+      await dbConnection();
+      const id = req.query.id as string;
+
+      const deletedProperty = await Properties.findByIdAndDelete(id);
+
+      return res.status(200).json({
+        ok: true,
+        message: "Property deleted",
+        _id: deletedProperty?._id,
       });
     }
         // res.status(200).json({name:"Funciona el put"})
