@@ -27,7 +27,6 @@ export default function LoginPage() {
     setUsersList(data.users);
   };
 
-  
   useEffect(() => {
     console.log("Users list updated:", usersList);
   }, [usersList]);
