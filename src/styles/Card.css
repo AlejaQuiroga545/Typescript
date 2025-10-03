@@ -1,0 +1,72 @@
+.card {
+  width: 600px;
+  height: 310px;
+  padding: 50px;
+  border-radius: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #000;
+  border-bottom: 7px solid #000;
+}
+
+.card:hover {
+  transform: translateY(-2px) ease;
+}
+
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+  background: #fff; /* se sobreescribe con props */
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline;
+  white-space: pre-line; /* respeta los \n */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 190px;
+  height: auto;
+  flex-shrink: 0;
+}

@@ -1,0 +1,147 @@
+/* 🎨 Base */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f9fafc;
+  margin: 0;
+  padding: 0;
+}
+
+.interaction-container {
+  text-align: center;
+  padding: 40px;
+}
+
+.interaction-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #333;
+  font-weight: 700;
+}
+
+.cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+/* 🃏 Card */
+.card {
+  width: 600px;
+  height: 310px;
+  padding: 40px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #eee;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Texto */
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  text-align: left;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+  padding: 6px 12px;
+  border-radius: 10px;
+  margin: 15px 0;
+  display: inline-block;
+  white-space: pre-line;
+}
+
+/* 🔘 Botón */
+.button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 999px; /* pill style */
+  background: #b9ff66;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.button:disabled {
+  background: #ddd;
+  cursor: not-allowed;
+}
+
+/* Icono dentro del botón */
+.icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  color: #ff6f91;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagen */
+.image {
+  width: 200px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+/* 🔖 Badge */
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.badge.success {
+  background: #b9ff66;
+  color: #000;
+}
+
+.badge.warning {
+  background: #ffd966;
+  color: #000;
+}
+
+.badge.info {
+  background: #66b9ff;
+  color: #fff;
+}
+
+.badge.error {
+  background: #ff6666;
+  color: #fff;
+}
+
+.badge.neutral {
+  background: #ddd;
+  color: #333;
+}

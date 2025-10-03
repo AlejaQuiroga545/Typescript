@@ -1,0 +1,302 @@
+/**Importo la fuente Poppins desde Google Fonts*/
+@import url('https:/*fonts.googleapis.com/*css2?family=Poppins:wght@400;600&display=swap');
+@import "./Card.css";
+@import "./button.css";
+@import "./interactions.css";
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #e8e8e8;
+  color: #333;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  color: #222;
+}
+
+/**Grid para las tarjetas */
+ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Estilos de las tarjetas */
+li {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-top: 6px solid #c547ff; /* Un toque de color arriba */
+}
+
+li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Textos */
+h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Colores para el estado */
+.status-available {
+  color: #2e8b57;
+  font-weight: 600;
+}
+
+.status-unavailable {
+  color: #d9534f;
+  font-weight: 600;
+}
+
+/* LOGIN*/
+
+/* Contenedor principal del login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda la pantalla /*
+}
+
+/* Caja del formulario */
+.login-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+}
+
+/* Títulos */
+.login-box h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.login-box h3 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Inputs tipo línea */
+.login-box input {
+  width: 100%;
+  padding: 10px 4px;
+  margin: 14px 0;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  font-size: 1rem;
+  color: #333;
+  border-radius: 0; 
+  outline: none;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  font-family: 'Poppins';
+}
+
+/* Al hacer foco */
+.login-box input:focus {
+  border-bottom-color: #a463ff;
+}
+
+/* Placeholder */
+.login-box input::placeholder {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/** Botón */
+.log {
+  width: 100%;
+  padding: 10px;
+  background-color: #a463ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.log:hover {
+  background-color: #9538ff;
+}
+.get {
+  width: 100%;
+  padding: 10px;
+  background-color: #a463ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.get:hover {
+  background-color: #9538ff;
+}
+
+.succed-btn{
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #ff6363;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.succed-btn:hover {
+  background-color: #ff3939;
+}
+}
+
+.scc-btn{
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #89ff3f;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.scc-btn:hover {
+  background-color: #54ff1c;
+}
+
+.dashboard {
+  text-align: center;
+  padding: 2rem;
+  font-family: "Poppins", sans-serif;
+}
+
+h1 {
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.error-btn {
+  background-color: #e74c3c;
+}
+
+.success-btn {
+  background-color: #2ecc71;
+}
+
+/* Estilos generales */
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* Contenedor principal del dashboard */
+.dashboard {
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Título */
+.dashboard h1 {
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* Contenedor de botones */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Estilos base de botones */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 60px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  font-family: 'Poppins';
+}
+
+/* Hover */
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Botón de error */
+.error-btn {
+  background-color: #e74c3c;
+}
+
+/* Botón de éxito */
+.success-btn {
+  background-color: #2ecc71;
+}
+
+.inf-btn {
+   background-color: #5baaff;
+}
+
+.wrg-btn {
+  background-color: #ffbe1b;
+}
