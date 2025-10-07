@@ -1,135 +1,76 @@
-"use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { authenticate } from "../utils/auth";
-import { userServices } from "./services/users";
+import { ToastContainer } from "react-toastify";
+import { Button, Input, Switch } from "@heroui/react";
+import { useContext, useState } from "react";
+import { useRouter } from "next/router";
+import { notification } from "@/helpers/utils";
+import { MyContext } from "@/context/Context";
 
-// Interfaz para tipar los usuarios
-interface User {
-  name: string;
-  age: number;
-}
+const userLogueado = {
+  name: "aleja",
+  role: "admin",
+  isActive: true,
+  date: "24/12/2025",
+};
 
-export default function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+export default function Home() {
+  const [user, setUser] = useState("");
+  const [pass, setPass] = useState("");
+
+  // Contexto global
+  const { setUserLogged, setIsActive, isActive } = useContext(MyContext);
+
   const router = useRouter();
 
-  const [usersList, setUsersList] = useState<User[]>([]);
-
   const handleClick = async () => {
-    const userClass = new userServices();
-    const data = await userClass.getUsers(); // { users: [...] }
-
-    console.log("Usuarios recibidos:", data.users);
-
-    setUsersList(data.users);
-  };
-
-  useEffect(() => {
-    console.log("Users list updated:", usersList);
-  }, [usersList]);
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (authenticate(username, password)) {
-      setMessage("✅ Login successful!");
-      router.push("/dashboard");
+    if (user === "aleja" && pass === "123456") {
+      setUserLogged(userLogueado);
+      notification("✅ Login exitoso", "success");
+      router.push("./dashboard");
     } else {
-      setMessage("❌ Oops, invalid credentials!");
+      notification("❌ Usuario o contraseña incorrectos", "error");
     }
   };
 
-  // GENÉRICOS
-  function identify<T>(parametro: T): T {
-    return parametro;
-  }
-
-  const result = identify<number>(15); //Tipo de dato que quiero que reciba T
-  console.log(result);
-
-  const arrayNum = [2, 54, 6, 8, 3, 4];
-  const arrayStrg = ["A", "B", "C", "D"];
-  const arrayBln = [true, false];
-
-  const result2 = identify<string>("A");
-  console.log(result2);
-
-  const result3 = identify<boolean>(true);
-  console.log(result3);
-
-  const returnLastElement = <T,>(array: T[]): T => {
-    // Retornamos el último elemento
-    return array[array.length - 1];
-  };
-
-  // EJERCICIO 2 | Retornar elementos en reversa
-
-  const revers = <T,>(array: T[]): T[] => {
-    return [...array].reverse();
-  };
-
-  const reverStrg = revers(["A", "B", "C", "D"]);
-  console.log(reverStrg);
-
-  const reverBool = revers([true, false]);
-  console.log(reverBool);
-
-  const reverNumber = revers([13, 11, 16, 17]);
-  console.log(reverNumber);
-
-  const lastNum = returnLastElement(arrayNum);
-  console.log("Último número:", lastNum); // 4
-
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h1>Hello user</h1>
-        <h3>Please log in to continue</h3>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-md">
+        <h1 className="text-2xl font-semibold mb-6 text-center">Login</h1>
 
-        <form onSubmit={handleLogin}>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+        <label className="block mb-2 text-sm font-medium text-gray-700">
+          User
+        </label>
+        <Input
+          label="User"
+          placeholder="Enter your user"
+          type="text"
+          onChange={(e) => setUser(e.target.value)}
+          value={user}
+        />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <label className="block mt-4 mb-2 text-sm font-medium text-gray-700">
+          Password
+        </label>
+        <Input
+          label="Password"
+          placeholder="Enter your password"
+          type="password"
+          onChange={(e) => setPass(e.target.value)}
+          value={pass}
+        />
 
-          <button className="log" type="submit">
-            Login
-          </button>
-        </form>
-
-        {message && <p>{message}</p>}
-        <br />
-        <button className="get" onClick={handleClick}>
-          Get user
-        </button>
-
-        <div>
-          {usersList.map(
-            (
-              item,
-              index // Recorre el array usersList y devuelve un bloque por cada usuario
-            ) => (
-              <div key={index}>
-                {" "}
-                {/* Bloque individual de cada usuario; "key" ayuda a React a identificar cada elemento */}
-                <div>{item.name}</div> {/* Renderiza el nombre del usuario */}
-                <div>{item.age}</div> {/* Renderiza la edad del usuario */}
-              </div>
-            )
-          )}
+        {/* Switch HeroUI */}
+        <div className="mt-6">
+          <Switch isSelected={isActive} onValueChange={setIsActive}>
+            Dark Mode
+          </Switch>
+          <p className="text-sm text-gray-500 mt-1">
+            Estado actual: {isActive ? "Activo" : "Inactiv"}
+          </p>
         </div>
+
+        <Button onPress={handleClick} className="mt-7 w-full" color="primary">
+          Login
+        </Button>
       </div>
     </div>
   );

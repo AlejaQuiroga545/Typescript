@@ -62,3 +62,10 @@ export const notification = (text: string, type: string, time:number=5000) => {
     });
   }
 };
+
+// Test
+
+export const sum = (a: number, b: number) => a+b; // Retorna number
+export const isEven = (n:number) => n % 2 === 0; // Retorna un booleano
+
+export const iva = (n:number) => n * 1.19;
