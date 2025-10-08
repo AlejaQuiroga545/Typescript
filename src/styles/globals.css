@@ -3,14 +3,14 @@
 @import "./Card.css";
 @import "./button.css";
 @import "./interactions.css";
+@import "./form.css";
 @plugin './hero.ts';
 @custom-variant dark (&:is(.dark));
 @import "tailwindcss";
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
   background-color: #e8e8e8;
   color: #333;
 }

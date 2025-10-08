@@ -1,0 +1,66 @@
+/* Center everything on the screen */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #fafafa;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Form styling */
+.heroui-form {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 420px;
+  animation: fadeInUp 0.6s ease both;
+}
+
+/* Title */
+.form-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Input underline */
+.heroui-input-line {
+  border-bottom: 2px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.heroui-input-line:focus-within {
+  border-color: #8a2be2;
+}
+
+/* Buttons */
+.heroui-button {
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.heroui-button:hover {
+  transform: translateY(-2px);
+}
+
+.heroui-button-reset {
+  color: #555;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
