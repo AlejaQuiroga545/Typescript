@@ -6,13 +6,17 @@ import "react-toastify/dist/ReactToastify.css";
 // Tipado de los datos del formulario
 interface FormData {
   name: string;
+  lastname:string;
+  occupation:string;
   email: string;
   age: string;
 }
 
-// Tipado de los posibles errores
+// Tipado de posibles errores
 interface ValidationErrors {
   name?: string;
+  lastname?:string;
+  occupation?:string;
   email?: string;
   age?: string;
   terms?: string;
@@ -39,6 +43,7 @@ function UserForm() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData) as unknown as FormData;
+    console.log(data)
 
     const newErrors: ValidationErrors = {};
 
@@ -54,6 +59,16 @@ function UserForm() {
     // Validación de nombre
     if (!data.name || !data.name.trim()) {
       newErrors.name = "Name is required.";
+    }
+
+    // Validación de apellido
+    if (!data.lastname || !data.lastname.trim()) {
+      newErrors.lastname = "Lastname is required.";
+    }
+
+    // Validación de ciudad
+    if (!data.occupation || !data.occupation.trim()) {
+      newErrors.occupation = "Occupation is required.";
     }
 
     // Validación de términos
@@ -78,7 +93,7 @@ function UserForm() {
   return (
     <>
       <div className="form-container">
-        <h2>User Registration</h2>
+        <h2>User registration</h2>
 
         <Form
           className="heroui-form"
@@ -103,6 +118,30 @@ function UserForm() {
               classNames={herouiInputClasses}
             />
 
+            {/* Campo Lastname */}
+            <Input
+              isRequired
+              isInvalid={!!errors.lastname}
+              errorMessage={errors.lastname}
+              label="Lastname"
+              labelPlacement="outside"
+              name="lastname"
+              placeholder="Enter your lastname"
+              classNames={herouiInputClasses}
+            />
+
+            {/* Campo Occupation */}
+            <Input
+              isRequired
+              isInvalid={!!errors.occupation}
+              errorMessage={errors.occupation}
+              label="Occupation"
+              labelPlacement="outside"
+              name="occupation"
+              placeholder="Enter your occupation"
+              classNames={herouiInputClasses}
+            />
+
             {/* Campo Email */}
             <Input
               isRequired
@@ -122,7 +161,7 @@ function UserForm() {
               isInvalid={!!errors.age || getAgeError(age) !== null}
               errorMessage={errors.age || getAgeError(age)}
               label="Age"
-              labelPlacement="outside"
+              labelPlacement="outside" 
               name="age"
               placeholder="You must be 18 or older"
               type="number"
@@ -173,14 +212,14 @@ function UserForm() {
       </div>
 
       {/* Datos enviados */}
-      {submitted && (
+      {/* {submitted && (
         <div className="text-small text-default-500 mt-4 text-center">
           Submitted Data:
           <pre className="p-3 bg-gray-100 rounded-lg max-w-md mx-auto text-black">
             {JSON.stringify(submitted, null, 2)}
           </pre>
         </div>
-      )}
+      )} */}
 
       <ToastContainer position="bottom-center" autoClose={4000} />
     </>
